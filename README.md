@@ -117,6 +117,160 @@ Pull requesty są mile widziane.
 ## 📦 Zestaw algorytmów (C#)
 
 Poniżej znajdują się wszystkie algorytmy zawarte w projekcie — w pełnych, gotowych do użycia implementacjach C#.
+## 📘 Teoria — proste wyjaśnienia wszystkich algorytmów
+
+Poniżej znajduje się proste i zrozumiałe omówienie wszystkich algorytmów użytych w projekcie.  
+Opis jest przygotowany specjalnie dla uczniów technikum — tak, aby każdy mógł łatwo zrozumieć działanie algorytmów bez wcześniejszej wiedzy akademickiej.
+
+---
+
+### 🔹 1. Sprawdzanie liczby pierwszej
+
+Liczba jest **pierwsza**, jeśli:
+- dzieli się tylko przez **1** i **siebie samą**,
+- **nie ma innych dzielników**.
+
+Przykłady:
+- 7 → liczba pierwsza  
+- 9 → nie jest pierwsza (dzieli się przez 3)
+
+Algorytm działa tak:
+- próbujemy dzielić liczbę przez liczby od 2 do **pierwiastka z n**,  
+- jeśli znajdziemy dzielnik → liczba NIE jest pierwsza,  
+- jeśli nie znajdziemy → liczba JEST pierwsza.
+
+---
+
+### 🔹 2. Sito Eratostenesa
+
+To szybki sposób znajdowania wszystkich liczb pierwszych do n.
+
+Działa w kilku krokach:
+1. Zaznaczamy wszystkie liczby od 2 do n jako „możliwe pierwsze”.  
+2. Zaczynamy od 2 i skreślamy jej wielokrotności: 4, 6, 8…  
+3. Przechodzimy do następnej liczby (3) i znów skreślamy jej wielokrotności.  
+4. To samo z 5, 7 itd.  
+5. Liczby, które **nie zostały skreślone**, są pierwsze.
+
+Przykład dla n = 10:  
+→ liczby pierwsze to **2, 3, 5, 7**
+
+---
+
+### 🔹 3. Rozkład liczby na czynniki pierwsze
+
+Każdą liczbę naturalną można zapisać jako **mnożenie liczb pierwszych**.
+
+Przykłady:
+- 12 → 2 × 2 × 3  
+- 36 → 2 × 2 × 3 × 3
+
+Jak działa algorytm?
+- dzielimy liczbę kolejno przez 2, 3, 4, 5…  
+- za każdym razem, gdy liczba się dzieli, zapisujemy dzielnik,  
+- dzielimy dalej, aż nie będzie już czego dzielić.
+
+---
+
+### 🔹 4. Silnia (n!)
+
+Silnia to:
+> „pomnóż wszystkie liczby od **1 do n**”.
+
+Przykład:
+- **5! = 1×2×3×4×5 = 120**
+
+Silnię liczymy na dwa sposoby:
+
+#### ✔ Iteracyjnie
+- zwykła pętla od 1 do n  
+- mnożymy wszystko po kolei  
+
+#### ✔ Rekurencyjnie
+- funkcja, która wywołuje samą siebie:  
+  **n! = n × (n−1)!**
+
+---
+
+### 🔹 5. Ciąg Fibonacciego
+
+To ciąg liczb, w którym każda następna liczba jest **sumą dwóch poprzednich**.
+
+Początek ciągu: 
+0, 1, 1, 2, 3, 5, 8, 13, ...
+
+
+Czyli:  
+0+1=1,  
+1+1=2,  
+1+2=3,  
+2+3=5, itd.
+
+Można to policzyć:
+- **iteracyjnie** — szybciej, w pętli  
+- **rekurencyjnie** — wolniej, ale łatwiej wygląda
+
+---
+
+### 🔹 6. Potęgowanie szybkie (Fast Power)
+
+Służy do szybkiego obliczenia potęgi:
+
+\[
+a^n
+\]
+
+Zamiast mnożyć a przez siebie **n razy**, robimy to dużo szybciej:
+
+- jeśli wykładnik jest nieparzysty → wynik mnożymy przez a  
+- podnosimy a do kwadratu  
+- wykładnik dzielimy przez 2  
+
+Dzięki temu zamiast n operacji jest ich około **log₂(n)**.
+
+Przykład:  
+Zamiast 13 mnożeń przy 4¹³ → zaledwie 4 mnożenia.
+
+---
+
+### 🔹 7. Odwrotność modulo
+
+Odwrotność modulo to liczba x taka, że:
+
+\[
+a \cdot x \equiv 1 \pmod{m}
+\]
+
+To coś jak „dzielenie” w arytmetyce modulo.
+
+Odwrotność istnieje tylko wtedy, gdy:
+- **a i m nie mają wspólnych dzielników**,  
+czyli **NWD(a, m) = 1**.
+
+Przykład:
+- odwrotność 3 modulo 7 to **5**,  
+bo 3 × 5 = 15, a **15 mod 7 = 1**.
+
+Do obliczania używa się:
+- **rozszerzonego algorytmu Euklidesa**.
+
+---
+
+## 🧠 Podsumowanie w bardzo prostych słowach
+
+| Algorytm | O co w nim chodzi? |
+|---------|----------------------|
+| Liczba pierwsza | sprawdzamy, czy liczba dzieli się tylko przez 1 i siebie |
+| Sito Eratostenesa | wykreślamy wielokrotności, zostają liczby pierwsze |
+| Rozkład na czynniki | rozbijamy liczbę na mnożenie liczb pierwszych |
+| Silnia | mnożymy liczby od 1 do n |
+| Fibonacci | każda liczba to suma dwóch poprzednich |
+| Fast Power | podnosimy do potęgi bardzo szybko, dzieląc wykładnik |
+| Odwrotność modulo | „dzielenie” w modulo – tylko gdy NWD = 1 |
+
+---
+
+
 
 ---
 ```csharp
