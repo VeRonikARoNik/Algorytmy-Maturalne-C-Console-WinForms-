@@ -348,3 +348,223 @@ class Program
 
 
 
+```
+## 🪟 WinForms – pełny kod aplikacji (.NET C#)
+
+Poniżej znajduje się kompletny kod obsługi formularza WinForms zawierającego:
+
+- `textBox1` – liczba a  
+- `textBox2` – liczba b  
+- `labelWynik` – pole wyświetlania wyników  
+- `button1` – przycisk „Oblicz”  
+- `checkBox1` – liczba pierwsza  
+- `checkBox2` – sito Eratostenesa  
+- `checkBox3` – rozkład na czynniki  
+- `checkBox4` – silnia  
+- `checkBox5` – Fibonacci  
+- `checkBox6` – potęgowanie szybkie  
+- `checkBox7` – odwrotność modulo  
+
+### ✔ Kod Form1.cs
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace AlgorytmyMaturalne
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            labelWynik.Text = ""; // Czyścimy pole wyników
+
+            int.TryParse(textBox1.Text, out int a);
+            int.TryParse(textBox2.Text, out int b);
+
+            // 1. Liczba pierwsza
+            if (checkBox1.Checked)
+            {
+                bool pierwsza = CzyPierwsza(a);
+                labelWynik.Text += $"Czy {a} jest liczbą pierwszą? → {pierwsza}\n";
+            }
+
+            // 2. Sito Eratostenesa
+            if (checkBox2.Checked)
+            {
+                var list = SitoEratostenesa(a);
+                labelWynik.Text += $"Liczby pierwsze do {a}:\n{string.Join(", ", list)}\n";
+            }
+
+            // 3. Rozkład liczby na czynniki
+            if (checkBox3.Checked)
+            {
+                var cz = Rozklad(a);
+                labelWynik.Text += $"Rozkład liczby {a}: {string.Join(" * ", cz)}\n";
+            }
+
+            // 4. Silnia
+            if (checkBox4.Checked)
+            {
+                labelWynik.Text += $"Silnia {a}! iteracyjnie: {SilniaIter(a)}\n";
+                labelWynik.Text += $"Silnia {a}! rekurencyjnie: {SilniaRek(a)}\n";
+            }
+
+            // 5. Fibonacci
+            if (checkBox5.Checked)
+            {
+                labelWynik.Text += $"Fibonacci iteracyjnie: {FibIter(a)}\n";
+                labelWynik.Text += $"Fibonacci rekurencyjnie: {FibRek(a)}\n";
+            }
+
+            // 6. Fast Power
+            if (checkBox6.Checked)
+            {
+                long p = FastPow(a, b);
+                labelWynik.Text += $"{a}^{b} = {p}\n";
+            }
+
+            // 7. Odwrotność modulo
+            if (checkBox7.Checked)
+            {
+                try
+                {
+                    int inv = ModInverse(a, b);
+                    labelWynik.Text += $"Odwrotność {a} modulo {b} = {inv}\n";
+                }
+                catch
+                {
+                    labelWynik.Text += $"Brak odwrotności modulo dla {a} i {b}\n";
+                }
+            }
+        }
+
+        // ==========================
+        // ALGORYTMY
+        // ==========================
+
+        bool CzyPierwsza(int n)
+        {
+            if (n < 2) return false;
+            for (int i = 2; i * i <= n; i++)
+                if (n % i == 0) return false;
+            return true;
+        }
+
+        List<int> SitoEratostenesa(int n)
+        {
+            bool[] p = new bool[n + 1];
+            for (int i = 2; i <= n; i++) p[i] = true;
+
+            for (int i = 2; i * i <= n; i++)
+                if (p[i])
+                    for (int j = i * i; j <= n; j += i)
+                        p[j] = false;
+
+            List<int> wynik = new List<int>();
+            for (int i = 2; i <= n; i++)
+                if (p[i]) wynik.Add(i);
+
+            return wynik;
+        }
+
+        List<int> Rozklad(int n)
+        {
+            List<int> w = new List<int>();
+
+            for (int i = 2; i * i <= n; i++)
+                while (n % i == 0)
+                {
+                    w.Add(i);
+                    n /= i;
+                }
+
+            if (n > 1)
+                w.Add(n);
+
+            return w;
+        }
+
+        long SilniaIter(int n)
+        {
+            long w = 1;
+            for (int i = 1; i <= n; i++)
+                w *= i;
+            return w;
+        }
+
+        long SilniaRek(int n)
+        {
+            if (n <= 1) return 1;
+            return n * SilniaRek(n - 1);
+        }
+
+        long FibIter(int n)
+        {
+            if (n == 0) return 0;
+            if (n == 1) return 1;
+
+            long a = 0, b = 1;
+            for (int i = 2; i <= n; i++)
+            {
+                long c = a + b;
+                a = b;
+                b = c;
+            }
+            return b;
+        }
+
+        long FibRek(int n)
+        {
+            if (n < 2) return n;
+            return FibRek(n - 1) + FibRek(n - 2);
+        }
+
+        long FastPow(long a, long n)
+        {
+            long w = 1;
+
+            while (n > 0)
+            {
+                if ((n & 1) == 1)
+                    w *= a;
+
+                a *= a;
+                n >>= 1; // dzielenie przez 2
+            }
+
+            return w;
+        }
+
+        (int x, int y, int d) ExtendedGcd(int a, int b)
+        {
+            if (b == 0) return (1, 0, a);
+
+            var r = ExtendedGcd(b, a % b);
+
+            int x = r.y;
+            int y = r.x - r.y * (a / b);
+
+            return (x, y, r.d);
+        }
+
+        int ModInverse(int a, int m)
+        {
+            var (x, y, d) = ExtendedGcd(a, m);
+
+            if (d != 1)
+                throw new Exception("Brak odwrotności modulo!");
+
+            return (x % m + m) % m;
+        }
+    }
+}
+
+
+```
