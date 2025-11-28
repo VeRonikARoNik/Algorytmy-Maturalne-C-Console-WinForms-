@@ -237,9 +237,8 @@ Zamiast 13 mnożeń przy 4¹³ → zaledwie 4 mnożenia.
 
 Odwrotność modulo to liczba x taka, że:
 
-\[
-a \cdot x \equiv 1 \pmod{m}
-\]
+a * x ≡ 1 (mod m)
+
 
 To coś jak „dzielenie” w arytmetyce modulo.
 
