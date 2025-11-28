@@ -119,6 +119,167 @@ Pull requesty są mile widziane.
 Poniżej znajdują się wszystkie algorytmy zawarte w projekcie — w pełnych, gotowych do użycia implementacjach C#.
 
 ---
+```csharp
+bool CzyPierwsza(int n)
+{
+    if (n < 2) return false;
+
+    for (int i = 2; i * i <= n; i++)
+        if (n % i == 0)
+            return false;
+
+    return true;
+}
+```
+### 2. Sito Eratostenesa (generowanie liczb pierwszych)
+```
+bool CzyPierwsza(int n)
+{
+    if (n < 2) return false;
+
+    for (int i = 2; i * i <= n; i++)
+        if (n % i == 0)
+            return false;
+
+    return true;
+}
+
+```
+### 3. Rozkład liczby na czynniki pierwsze
+```
+List<int> Rozklad(int n)
+{
+    List<int> wynik = new List<int>();
+
+    for (int i = 2; i * i <= n; i++)
+        while (n % i == 0)
+        {
+            wynik.Add(i);
+            n /= i;
+        }
+
+    if (n > 1)
+        wynik.Add(n);
+
+    return wynik;
+}
+
+```
+
+### 4. Silnia
+### Iteracyjnie
+```
+long SilniaIter(int n)
+{
+    long wynik = 1;
+
+    for (int i = 1; i <= n; i++)
+        wynik *= i;
+
+    return wynik;
+}
+
+
+```
+
+### Rekurencyjnie
+```
+long SilniaRek(int n)
+{
+    if (n <= 1)
+        return 1;
+
+    return n * SilniaRek(n - 1);
+}
+
+```
+### 5. Fibonacci (iteracyjnie i rekurencyjnie)
+### Iteracyjnie
+```
+long FibIter(int n)
+{
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    long a = 0, b = 1;
+
+    for (int i = 2; i <= n; i++)
+    {
+        long c = a + b;
+        a = b;
+        b = c;
+    }
+
+    return b;
+}
+
+```
+
+### Rekurencyjnie
+```
+long FibRek(int n)
+{
+    if (n < 2)
+        return n;
+
+    return FibRek(n - 1) + FibRek(n - 2);
+}
+
+```
+
+### 6. Potęgowanie szybkie (Fast Power)
+```
+long FastPow(long a, long n)
+{
+    long wynik = 1;
+
+    while (n > 0)
+    {
+        if ((n & 1) == 1)
+            wynik *= a;
+
+        a *= a;
+        n >>= 1; // dzielenie przez 2
+    }
+
+    return wynik;
+}
+
+```
+
+### Rozszerzony algorytm Euklidesa
+```
+(int x, int y, int d) ExtendedGcd(int a, int b)
+{
+    if (b == 0)
+        return (1, 0, a);
+
+    var r = ExtendedGcd(b, a % b);
+
+    int x = r.y;
+    int y = r.x - r.y * (a / b);
+
+    return (x, y, r.d);
+}
+
+
+```
+
+### Odwrotność modulo
+```
+int ModInverse(int a, int m)
+{
+    var (x, y, d) = ExtendedGcd(a, m);
+
+    if (d != 1)
+        throw new Exception("Odwrotność nie istnieje (NWD ≠ 1)");
+
+    return (x % m + m) % m;
+}
+
+```
+
+
 
 ```csharp
 ## 🖥️ Pełny program konsolowy (C#)
@@ -348,7 +509,7 @@ class Program
 
 
 
-```
+
 ## 🪟 WinForms – pełny kod aplikacji (.NET C#)
 
 Poniżej znajduje się kompletny kod obsługi formularza WinForms zawierającego:
