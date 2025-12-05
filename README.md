@@ -882,3 +882,10 @@ namespace AlgorytmyMaturalne
 
 
 ```
+
+Zadanie Samodzielne.
+Zrealizuj minimum 2 algorytmy  w aplikacji desktopowej.
+Wybierz dowolne jakich nie było z listy. 
+
+
+
